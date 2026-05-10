@@ -1,9 +1,7 @@
 import axios from "axios";
 
-import axios from "axios";
-
 const API = axios.create({
-    baseURL: "https://hashirmon22.pythonanywhere.com/"
+    baseURL: "http://127.0.0.1:8000/"
 })
 
 // token attach
@@ -26,7 +24,7 @@ API.interceptors.response.use(
         if (error.response?.status == 401){
             const refresh = localStorage.getItem("refresh");
             const res = await axios.post(
-                "https://hashirmon22.pythonanywhere.com/api/token/refresh/", {refresh:refresh}
+                "http://127.0.0.1:8000/api/token/refresh/", {refresh:refresh}
             )
             const newToken = res.data.access;
             localStorage.setItem("access", newToken)

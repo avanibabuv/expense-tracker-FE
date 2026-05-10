@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import API from "axios";
+import API from "../api/axios";
 import Markdown from 'react-markdown';
 
 const CATEGORIES = [
@@ -56,37 +56,25 @@ export default function ExpenseTracker({ onLogout }) {
     const thisMonth = today.getMonth();
     const thisYear = today.getFullYear();
 
-    const monthTotal = useMemo(() => {
-    if (!Array.isArray(expenses)) return 0;
-
-    return expenses
-        .filter((e) => {
-            const d = new Date(e.created_date);
-            return d.getMonth() === thisMonth && d.getFullYear() === thisYear;
-        })
-        .reduce((sum, e) => sum + e.amount, 0);
-}, [expenses]);
-
-
+    const monthTotal = useMemo(() =>
+        expenses
+            ?.filter((e) => {
+                const d = new Date(e.created_date);
+                return d.getMonth() === thisMonth && d.getFullYear() === thisYear;
+            })
+            .reduce((sum, e) => sum + e.amount, 0),
+        [expenses]
+    );
 
     const recent = useMemo(() =>
-        expenses ? [...expenses].sort((a, b) => new Date(b.created_date) - new Date(a.created_date)) : [],
+        expenses ? [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date)) : [],
         [expenses]
     );
 
     const listExpenses = async () => {
-    const res = await expenseListApi()
-
-    console.log("Expense API response:", res.data); // 👈 keep this for now
-
-    if (Array.isArray(res.data)) {
-        setExpenses(res.data);
-    } else if (Array.isArray(res.data.data)) {
-        setExpenses(res.data.data);
-    } else {
-        setExpenses([]);
+        const res = await expenseListApi()
+        setExpenses(res?.data)
     }
-}
 
     const userDetailetch = async () => {
         const res = await userDetailApi()

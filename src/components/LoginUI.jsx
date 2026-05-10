@@ -11,48 +11,48 @@ export default function Login({ onLogin }) {
     const validate = () => {
         const e = {};
         console.log(tab === "signup");
-
+        
         if (tab === "signup" && !form.name.trim()) e.name = "Name is required.";
         if (tab === "signup" && (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email))) e.email = "Enter a valid email.";
         if (!form.password || form.password.length < 4) e.password = "Password must be at least 4 characters.";
         if (!form.username.trim()) e.username = "Username is required.";
         console.log(e);
-
+        
         return e;
     };
 
-    const login = (data) => axios.post("https://hashirmon22.pythonanywhere.com/api/token/", data)
-    const signup = (data) => axios.post("https://hashirmon22.pythonanywhere.com/api/signup/", data)
+    const login = (data) => axios.post("http://127.0.0.1:8000/api/token/", data)
+    const signup = (data) => axios.post("http://127.0.0.1:8000/api/token/signup/", data)
 
     const handleSubmit = async () => {
         const e = validate();
         if (Object.keys(e).length) { setErrors(e); return; }
         setErrors({});
         setLoading(true);
-        if (tab == "login") {
+        if (tab == "login"){
             try {
-                const res = await login({ username: form.username, password: form.password })
+                const res = await login({username: form.username, password: form.password})
                 localStorage.setItem("access", res.data.access)
                 localStorage.setItem("refresh", res.data.refresh)
                 onLogin()
             } catch (error) {
-                if (error?.response?.status == 401) {
-                    setErrors({ "login": error.response.data.detail })
-                } else {
-                    setErrors({ "login": "Server not reachable" })
+                if (error?.response?.status == 401){
+                    setErrors({"login":error.response.data.detail})
+                }else{
+                    setErrors({"login":"Server not reachable"})
                 }
             }
-        } else {
-            try {
-                const res = await signup({ ...form })
-                setErrors({ "login": "Signup Successfull, Login to continue!" });
-                setForm({ name: "", username: "", email: "", password: "" });
+        }else{
+            try{
+                const res = await signup({...form})
+                setErrors({"login":"Signup Successfull, Login to continue!"});
+                setForm({ name: "", username:"", email: "", password: "" });
                 setTab("login")
-            } catch (error) {
-                if (error?.response?.status == 401) {
-                    setErrors({ "login": error.response.data.detail })
-                } else {
-                    setErrors({ "login": "Server not reachable" })
+            }catch (error) {
+                if (error?.response?.status == 401){
+                    setErrors({"login":error.response.data.detail})
+                }else{
+                    setErrors({"login":"Server not reachable"})
                 }
             }
         }
@@ -103,7 +103,7 @@ export default function Login({ onLogin }) {
                     {/* Tab switcher */}
                     <div className="flex border-b border-stone-100">
                         {["login", "signup"].map((t) => (
-                            <button key={t} onClick={() => { setTab(t); setErrors({}); setForm({ name: "", username: "", email: "", password: "" }); }}
+                            <button key={t} onClick={() => { setTab(t); setErrors({}); setForm({ name: "", username:"", email: "", password: "" }); }}
                                 className={`flex-1 py-4 text-xs font-mono uppercase tracking-widest transition-colors duration-200 ${tab === t
                                     ? "text-stone-800 border-b-2 border-[#c9a96e] bg-[#fdf6ec]"
                                     : "text-stone-400 hover:text-stone-600"
@@ -223,7 +223,7 @@ export default function Login({ onLogin }) {
                 {/* Footer switch */}
                 <p className="text-center text-xs font-mono text-stone-400 mt-6">
                     {tab === "login" ? "Don't have an account? " : "Already have an account? "}
-                    <button onClick={() => { setTab(tab === "login" ? "signup" : "login"); setErrors({}); setForm({ name: "", username: "", email: "", password: "" }); }}
+                    <button onClick={() => { setTab(tab === "login" ? "signup" : "login"); setErrors({}); setForm({ name: "", username:"", email: "", password: "" }); }}
                         className="text-[#c9a96e] hover:text-[#b8935a] transition-colors underline underline-offset-2">
                         {tab === "login" ? "Sign up" : "Sign in"}
                     </button>
