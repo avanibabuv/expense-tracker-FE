@@ -320,7 +320,7 @@ export default function ExpenseTracker({ onLogout }) {
             {showAIModal && (
                 <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
                     <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => { setShowModal(false); setFormError(""); }} />
-                    <div className="relative bg-white w-full sm:max-w-sm rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl z-10">
+                    <div className="relative bg-white w-full sm:max-w-sm rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl z-10 max-h-[80vh] overflow-y-auto">
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="text-lg font-bold text-stone-800" style={{ fontFamily: "'Georgia', serif" }}>AI Overview</h3>
                             <button onClick={() => { setShowAIModal(false) }}
