@@ -185,7 +185,7 @@ export default function ExpenseTracker({ onLogout }) {
                                 <li key={exp.id}
                                     className="bg-white rounded-2xl px-4 py-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow duration-200 group">
                                     {/* Icon */}
-                                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 ${cat.color}`}>
+                                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0 ${cat.color}`}>
                                         {cat.icon}
                                     </div>
 
@@ -200,7 +200,7 @@ export default function ExpenseTracker({ onLogout }) {
                                     </div>
 
                                     {/* Amount */}
-                                    <div className="flex items-center gap-2 flex-shrink-0">
+                                    <div className="flex items-center gap-2 shrink-0">
                                         <span className="font-bold text-stone-800 text-sm font-mono">
                                             {formatCurrency(exp.amount)}
                                         </span>
