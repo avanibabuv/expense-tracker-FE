@@ -151,7 +151,7 @@ export default function ExpenseTracker({ onLogout }) {
                     <h1 className="text-5xl font-bold text-white mb-1" style={{ fontFamily: "'Georgia', serif", letterSpacing: "-0.02em" }}>
                         {formatCurrency(monthTotal)}
                     </h1>
-                    <div className="mt-4 h-px bg-gradient-to-r from-transparent via-stone-600 to-transparent" />
+                    <div className="mt-4 h-px bg-gradiant-to-r from-transparent via-stone-600 to-transparent" />
                     <p className="text-stone-500 text-xs mt-3 font-mono">{expenses?.length} transactions total</p>
                 </div>
 
