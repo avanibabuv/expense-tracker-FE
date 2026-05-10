@@ -1,6 +1,6 @@
 import { useState } from "react"
-import ExpenseTracker from "./components/HomeUi"
-import Login from "./components/LoginUi"
+import ExpenseTracker from "./components/HomeUI"
+import Login from "./components/LoginUI"
 
 function App() {
   const [user, setUser] = useState(() => !!localStorage.getItem("access"))
